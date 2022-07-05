@@ -20,5 +20,12 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 <img src = "IMGS/">
 
 ## BACKLOG DE IMPLEMENTACIÓN
-
-* 
+1. Forkear y clonar repo.
+2. Agregar un project de github al repo para planning.
+3. Instalar npm.
+3. Instalar learnyounode y realizar los 3 primeros ejercicios.
+4. Comenzar diagrama de flujo de trabajo.
+5. Instalara axios y chalk.
+6. Investigar sobre recursividad, path, fs y process.
+7. Realizar función para traer un solo archivo con fs.readFileSync.
+8. Instalar marked y cheerio.
