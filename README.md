@@ -6,10 +6,11 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 
 ## DIAGRAMA DE FLUJO
 
-<img src = "IMGS/">
+<img src = "IMGS/diagrama de flujo.png">
 
 ## DOCUMENTACIÓN TÉCNICA
-
+[author](https://github.com/cazavi)
+[linkedin](https://www.linkedin.com/in/carolina-zapata-vidal/)
 
 ## GUÍA DE INSTALACIÓN
 
@@ -29,3 +30,5 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 6. Investigar sobre recursividad, path, fs y process.
 7. Realizar función para traer un solo archivo con fs.readFileSync.
 8. Instalar marked y cheerio.
+9. Leer uso de marked y cheerio y aplicarlo con métodos creados.
+10. Unir cada método de manera que se puedan meter en una promesa con callback.
