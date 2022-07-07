@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const getArchive = require('getArchive')
 
 //recall promise
-const mdlinks = ()
+const mdlinks = ();
 function someAsyncFunction() {
   return new Promise((resolve, reject) => {
     if (somethingWasSuccessful) {
