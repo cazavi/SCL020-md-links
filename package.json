@@ -1,6 +1,14 @@
 {
-  "name": "md-links",
+  "name": "md-links-cz",
+  "author": {
+    "name": "Carolina Zapata",
+    "url": "https://github.com/cazavi"
+  },
   "version": "0.1.0",
+  "homepage": "https://github.com/cazavi/SCL020-md-links",
+  "description": "Library that tests markdown links status",
+  "main": "cli.js",
+  
   "engines": {
     "node": ">=14.x"
   },
@@ -9,5 +17,8 @@
     "chalk": "4.1.2",
     "cheerio": "^1.0.0-rc.12",
     "marked": "^4.0.17"
+  },
+  "scripts": {
+
   }
 }

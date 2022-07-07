@@ -6,43 +6,63 @@ const cheerio = require('cheerio');
 const marked = require('marked');
 const { env } = require('node:process');
 const { argv } = require('node:process');
+// const { attr } = require('cheerio/lib/api/attributes');
 
 let readme = './README.md';
 let images = './IMGS'
 let nm = './node_modules'
 
-//marked call
-// document.getElementById('content').innerHTML =
-// marked.parse('# Marked in the browser\n\nRendered by **marked**.');
-
-// //cheerio
-// const $ = cheerio.load('<h2 class="title">Hello world</h2>');
-
-// const mark = marked.parse(readme)
-// console.log(mark)
-
-// const $ = cheerio.load(readme)
-// console.log($)
-
 //GET ARCHIVE
-const getArchive = fs.readFileSync(readme, 'utf8');
-// archive.map(callback(){}
-    // (error, data)
-    // if (error) throw error;
-    // console.log("El contenido es: ", data);
-// });
+const getArchive = (filename) => {
+    const data = fs.readFileSync(readme, 'utf8');
+    const archive = (marked.parse(getArchive));
+    const $ = cheerio.load(archive);
+    const cutLink = $('a');
+    const linkToArr = []; 
+    cutLink.each((index, link) =>{
+        linkToArr.push({
+            href: $(link).attr('href'),
+            text: $(link).text(),
+            file: filename,
+        });
+    });
+    return linkObjToArr;
+};
 
-const mark = (marked.parse(getArchive))
+//HTTP REQUEST
+const linkReq = (filename) =>{
+    const links = getArchive(filename);
+    const receiveLinks = [];
+    links.map((route) => {
+        const url = route.href;
+        const description = route.text;
+        const file = route.file
+    }
+    )
+}
 
-const $ = cheerio.load(mark)
-// console.log($)
+  //axios
+axios.get(link)
+    .then((response) => {
+        if(path.isAbsolute(link)===false){
+            const absLink = path.join(__dirname, link)
+        return absLink
+    }
+    console.log(response);
+    })
+    .catch((error) => {
+
+    console.log(error);
+    })
+    .then(){
+    };
 
 //GET EXTENSION
 function getExtension(readme) {
     const ext = path.extname(readme||'').split('.');
     return ext[ext.length - 1];
 }
-// console.log(getExtension(readme))
+
 
 //GET DIRECTORY
 // function getDirectory(readme){
