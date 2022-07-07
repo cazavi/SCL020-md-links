@@ -31,4 +31,5 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 7. Realizar función para traer un solo archivo con fs.readFileSync.
 8. Instalar marked y cheerio.
 9. Leer uso de marked y cheerio y aplicarlo con métodos creados.
-10. Unir cada método de manera que se puedan meter en una promesa con callback.
+10. Unir cada método para poder leer un archivo en una sola const.
+11. Crear la función para hacer la petición de revisar los links a axios.
