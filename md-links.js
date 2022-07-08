@@ -9,8 +9,7 @@ const { argv } = require('node:process');
 // const { attr } = require('cheerio/lib/api/attributes');
 
 let readme = './README.md';
-let images = './IMGS'
-let nm = './node_modules'
+let prueba = './PRUEBA/prueba.md';
 
 //GET ARCHIVE
 const getArchive = (filename) => {
@@ -26,7 +25,7 @@ const getArchive = (filename) => {
             file: filename,
         });
     });
-    return linkObjToArr;
+    return linkToArr;
 };
 
 //HTTP REQUEST
@@ -42,36 +41,54 @@ const linkReq = (filename) =>{
 }
 
   //axios
-axios.get(link)
-    .then((response) => {
-        if(path.isAbsolute(link)===false){
-            const absLink = path.join(__dirname, link)
-        return absLink
-    }
-    console.log(response);
+const validate = function (linkToArr){
+    linkToArr.map ( (link) => {
+        console.log(link)
+        axios.get(link.href)
+            .then((response) => {
+                console.log(response)
+                if(path.isAbsolute(link.href)===false){
+                    const absLink = path.join(__dirname, link.href)
+                    return absLink
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     })
-    .catch((error) => {
+}
+validate([{href:"https://github.com/cazavi"}])
 
-    console.log(error);
+
+//RECURSIVE FUNCTION
+const getAllFiles = function(dirPath, arrayOfFiles) {
+    files = fs.readdirSync(dirPath)
+    arrayOfFiles = arrayOfFiles || []
+    files.forEach(function(file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+        arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
+    } else {
+        arrayOfFiles.push(path.join(__dirname, dirPath, "/", file))
+    }
     })
-    .then(){
-    };
+    return arrayOfFiles
+}
 
 //GET EXTENSION
-function getExtension(readme) {
-    const ext = path.extname(readme||'').split('.');
-    return ext[ext.length - 1];
-}
+// function getExtension(link) {
+//     const ext = path.extname(link||'').split('.');
+//     return ext[ext.length - 1];
+// }
 
 
 //GET DIRECTORY
-// function getDirectory(readme){
-    const directory = fs.readdirSync(nm);
+// function getDirectory(link){
+    // const directory = fs.readdirSync();
 // }
 // console.log(directory)
 
 //JOIN PATHS
-const joinPaths = path.join('/IMGS','/README')
+// const joinPaths = path.join('/IMGS','/README')
 // console.log(joinPaths)
 
 
