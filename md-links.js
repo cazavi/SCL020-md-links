@@ -6,6 +6,8 @@ const cheerio = require('cheerio');
 const marked = require('marked');
 const { env } = require('node:process');
 const { argv } = require('node:process');
+const { receiveMessageOnPort } = require('worker_threads');
+const { ok } = require('assert');
 // const { attr } = require('cheerio/lib/api/attributes');
 
 let readme = './README.md';
@@ -13,8 +15,8 @@ let prueba = './PRUEBA/prueba.md';
 
 //GET ARCHIVE
 const getArchive = (filename) => {
-    const data = fs.readFileSync(readme, 'utf8');
-    const archive = (marked.parse(getArchive));
+    const data = fs.readFileSync(filename, 'utf8');
+    const archive = (marked.parse(data));
     const $ = cheerio.load(archive);
     const cutLink = $('a');
     const linkToArr = []; 
@@ -28,43 +30,53 @@ const getArchive = (filename) => {
     return linkToArr;
 };
 
-//HTTP REQUEST
-const linkReq = (filename) =>{
+//AXIOS REQ
+const validate = function (filename){
     const links = getArchive(filename);
+    // console.log(1,filename)
     const receiveLinks = [];
-    links.map((route) => {
-        const url = route.href;
-        const description = route.text;
-        const file = route.file
-    }
-    )
-}
-
-  //axios
-const validate = function (linkToArr){
-    linkToArr.map ( (link) => {
-        console.log(link)
-        axios.get(link.href)
-            .then((response) => {
-                console.log(response)
-                if(path.isAbsolute(link.href)===false){
-                    const absLink = path.join(__dirname, link.href)
-                    return absLink
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+    links.map((link) => {
+        const url = link.href;
+        const text = link.text;
+        const file = link.file;
+        // let status = link.status;
+        // let ok = link.statusText
+    // console.log(typeof url)        
+    const axiosReq = axios.get(url)
+    .then((response) => {
+        // console.log(response.href)
+        const newObject = {
+        href: url,
+        text: text,
+        file: file,
+        status:response.status,
+        ok:response.statusText
+        }
+        return newObject
     })
+    .catch((error) => {
+        // console.log(error.status_code);
+        const newObject = {
+        href: url,
+        text: text,
+        file: file,
+        status:error.response.status,
+        ok: 'Fail'
+        }
+        return newObject
+    })   
+    receiveLinks.push(axiosReq)
+    // console.log(1,receiveLinks)                
+    })
+    return Promise.all(receiveLinks)
 }
-validate([{href:"https://github.com/cazavi"}])
+validate(prueba).then(console.log)
 
-
-//RECURSIVE FUNCTION
+//RECURSIVE FUNCTION TO GET INTO A DIRECTORY
 const getAllFiles = function(dirPath, arrayOfFiles) {
     files = fs.readdirSync(dirPath)
     arrayOfFiles = arrayOfFiles || []
-    files.forEach(function(file) {
+    files.map((file) => {
     if (fs.statSync(dirPath + "/" + file).isDirectory()) {
         arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
     } else {
@@ -90,6 +102,3 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
 //JOIN PATHS
 // const joinPaths = path.join('/IMGS','/README')
 // console.log(joinPaths)
-
-
-

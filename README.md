@@ -9,8 +9,6 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 <img src = "IMGS/diagrama de flujo.png">
 
 ## DOCUMENTACIÓN TÉCNICA
-[author](https://github.com/cazavi)
-[linkedin](https://www.linkedin.com/in/carolina-zapata-vidal/)
 
 ## GUÍA DE INSTALACIÓN
 
@@ -33,3 +31,5 @@ Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo, 
 9. Leer uso de marked y cheerio y aplicarlo con métodos creados.
 10. Unir cada método para poder leer un archivo en una sola const.
 11. Crear la función para hacer la petición de revisar los links a axios.
+12. Crear función para entrar en directorios a buscar archivos.
+13. Unir todo en una sola función md-links.
