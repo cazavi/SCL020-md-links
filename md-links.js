@@ -6,11 +6,7 @@ const cheerio = require('cheerio');
 const marked = require('marked');
 const { env } = require('node:process');
 const { argv } = require('node:process');
-const { receiveMessageOnPort } = require('worker_threads');
-const { ok } = require('assert');
-// const { attr } = require('cheerio/lib/api/attributes');
 
-let readme = './README.md';
 let prueba = './PRUEBA/prueba.md';
 
 //GET ARCHIVE
@@ -38,10 +34,7 @@ const validate = function (filename){
     links.map((link) => {
         const url = link.href;
         const text = link.text;
-        const file = link.file;
-        // let status = link.status;
-        // let ok = link.statusText
-    // console.log(typeof url)        
+        const file = link.file;    
     const axiosReq = axios.get(url)
     .then((response) => {
         // console.log(response.href)
@@ -50,7 +43,7 @@ const validate = function (filename){
         text: text,
         file: file,
         status:response.status,
-        ok:response.statusText
+        request:response.statusText
         }
         return newObject
     })
@@ -61,7 +54,7 @@ const validate = function (filename){
         text: text,
         file: file,
         status:error.response.status,
-        ok: 'Fail'
+        request: 'Fail: '+ error.response.statusText
         }
         return newObject
     })   
@@ -70,34 +63,54 @@ const validate = function (filename){
     })
     return Promise.all(receiveLinks)
 }
-validate(prueba).then(console.log)
+// validate(prueba).then(console.log)
+
+//GET STATS
+const stats = function(filename){
+    const links = getArchive(filename);
+    const activeLinks = [];
+    const brokenLinks = [];
+    for (let i = 0; i < links.length; i++) {
+        let url = links[i]; 
+        axios.get(url.href)
+        .then((response) => {
+            if (response.status === 200) {
+            activeLinks.push(response.url)
+            } else {
+            brokenLinks.push(response.url)
+            }
+        }).catch((err) => {
+            console.log(chalk.red(`error 1: ${err}`));
+        });
+    }
+}
+stats(prueba)
 
 //RECURSIVE FUNCTION TO GET INTO A DIRECTORY
-const getAllFiles = function(dirPath, arrayOfFiles) {
-    files = fs.readdirSync(dirPath)
-    arrayOfFiles = arrayOfFiles || []
-    files.map((file) => {
-    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-        arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
-    } else {
-        arrayOfFiles.push(path.join(__dirname, dirPath, "/", file))
-    }
-    })
-    return arrayOfFiles
-}
+// const getAllFiles = function(dirPath, filesArray) {
+//     const files = fs.readdirSync(dirPath, 'utf-8')
+//     filesArray = filesArray || []
+//     files.map((filename) => {
+//     if (fs.statSync(dirPath + "/" + filename).isDirectory()) {
+//         filesArray = getAllFiles(dirPath + "/" + filename, filesArray)
+//     } else {
+//         filesArray.push(path.join(__dirname, dirPath, "/", filename))
+//     }
+//     })
+//     return filesArray
+// }
 
 //GET EXTENSION
-// function getExtension(link) {
-//     const ext = path.extname(link||'').split('.');
-//     return ext[ext.length - 1];
-// }
+const ext = path.extname(prueba||'').split('.');
 
+module.exports = {
+    getArchive,
+    validate,
+    getAllFiles,
+    ext,
+    stats
+};
 
-//GET DIRECTORY
-// function getDirectory(link){
-    // const directory = fs.readdirSync();
-// }
-// console.log(directory)
 
 //JOIN PATHS
 // const joinPaths = path.join('/IMGS','/README')
