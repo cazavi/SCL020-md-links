@@ -4,11 +4,10 @@ const axios = require("axios").default;
 const chalk = require("chalk");
 const cheerio = require("cheerio");
 const marked = require("marked");
-const { env } = require("node:process");
-const { argv } = require("node:process");
 
-let prueba = "./PRUEBA/prueba.md";
-const pruebaCopy = "./PRUEBA/prueba copy.md";
+// let prueba = "./PRUEBA/prueba.md";
+// const pruebaCopy = "./PRUEBA/prueba copy.md";
+
 //GET ARCHIVE
 const getArchive = (filename) => {
   const data = fs.readFileSync(filename, "utf8");
@@ -36,8 +35,7 @@ const validate = function (filename) {
     const url = link.href;
     const text = link.text;
     const file = link.file;
-    const axiosReq = axios
-      .get(url)
+    const axiosReq = axios.get(url)
       .then((response) => {
         // console.log(response.href)
         const newObject = {
