@@ -10,10 +10,11 @@ const cli = () =>{
         validate: false,
         stats: false,
     }
-    if(process.argv[2]==='--validate'){
+    if(process.argv[3]==='--validate'){
         options.validate=true;
-    } else if(process.argv[2]==='--validate'){
+    } else if(process.argv[3]==='--stats'){
         options.stats=true;
     }
-    mdlinks(options)
-}   
+    mdlinks(process.argv[2],options).then((result)=> console.log(result))
+}  ; 
+cli();
