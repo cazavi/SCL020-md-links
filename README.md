@@ -9,6 +9,9 @@ This will allow us to execute JavaScript on the operative system environment, ei
 ## TECHNOLOGIES
   NodeJS, axios, chalk, axios, cheerio, marked.
 
+## NPM PACKAGE OFFICIAL PAGE
+  `https://www.npmjs.com/package/@cazavi/md-links`
+
 ## INSTALL
 For installing this module, you will need to write on your console:
 
