@@ -1,8 +1,6 @@
 #!/usr/bin/env node
-const path =require('path');
 const process = require('process');
 const { mdlinks } = require('./index');
-const { validate } = require('./md-links');
 
 const cli = () =>{
     

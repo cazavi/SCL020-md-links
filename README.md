@@ -6,30 +6,34 @@ This will allow us to execute JavaScript on the operative system environment, ei
 
 <img src = "IMGS/diagrama de flujo.png">
 
-## DOCUMENTACIÓN TÉCNICA
+## TECHNOLOGIES
+  NodeJS, axios, chalk, axios, cheerio, marked.
 
-## GUÍA DE INSTALACIÓN
+## INSTALL
+For installing this module, you will need to write on your console:
+
+Locally:
+npm i @cazavi/md-links
+
+Globally:
+npm install @cazavi/md-links -g
 
 
+## USE
+You have two commands to use on terminal adding it to the route you want to test, like this: 
+  md-links route --validate
 
-## GUÍA DE USO
+--validate
+Response:
 
+href: URL.
+text: Inner link text.
+file: link route.
+status: HTTP response code.
+statusText: error or ok (depending on link state).
 
+--stats
+Response:
 
-## BACKLOG DE IMPLEMENTACIÓN
-1. Forkear y clonar repo.
-2. Agregar un project de github al repo para planning.
-3. Instalar npm.
-3. Instalar learnyounode y realizar los 3 primeros ejercicios.
-4. Comenzar diagrama de flujo de trabajo.
-5. Instalara axios y chalk.
-6. Investigar sobre recursividad, path, fs y process.
-7. Realizar función para traer un solo archivo con fs.readFileSync.
-8. Instalar marked y cheerio.
-9. Leer uso de marked y cheerio y aplicarlo con métodos creados.
-10. Unir cada método para poder leer un archivo en una sola const.
-11. Crear la función para hacer la petición de revisar los links a axios.
-12. Crear función para entrar en directorios a buscar archivos.
-13. Unir todo en una sola función md-links.
-14. Crear comandos en cli.js
-15. Añadir datos a package.json para poder ejecutar comandos.
+total: total links tested on file.
+unique: total not repeated links found.

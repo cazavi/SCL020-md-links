@@ -21,12 +21,10 @@ const getLinks = (filename) => {
   });
   return linkToArr;
 };
-// console.log('SI ',getArchive(prueba))
 
 //AXIOS REQ
 const validate = function (arrLinks) {
   const links = getLinks(arrLinks);
-  // console.log(1,filename)
   let receiveLinks = [];
   links.map((link) => {
     const url = link.href;
@@ -34,7 +32,6 @@ const validate = function (arrLinks) {
     const file = link.file;
     const axiosReq = axios.get(url)
       .then((response) => {
-        // console.log(response.href)
         const newObject = {
           href: url,
           text: text,
@@ -45,7 +42,6 @@ const validate = function (arrLinks) {
         return newObject;
       })
       .catch((error) => {
-        // console.log(error.status_code);
         const newObject = {
           href: url,
           text: text,
@@ -56,11 +52,9 @@ const validate = function (arrLinks) {
         return newObject;
       });
     receiveLinks.push(axiosReq);
-    // console.log(1,receiveLinks)
   });
   return Promise.all(receiveLinks);
 };
-// validate(prueba).then(console.log);
 
 //GET STATS
 const stats = function (filename) {
@@ -90,7 +84,6 @@ let absoluteLink = "";
   }
   return absoluteLink
 };
-// console.log('SI ',absolute(prueba))
 
 //RECURSIVE FUNCTION TO GET INTO A DIRECTORY
 const getAllFiles = function (absolutePath, filesArray) {
@@ -110,7 +103,6 @@ const getAllFiles = function (absolutePath, filesArray) {
   });
   return filesArray;
 };
-// console.log('SI ',getAllFiles(prueba))
 
 module.exports = {
   getArchive: getLinks,

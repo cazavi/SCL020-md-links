@@ -6,19 +6,14 @@ const {
   stats,
   absolute,
 } = require("./md-links");
-const path = require("path");
 const fs = require("fs");
-const { get } = require("http");
-const { resolve } = require("path");
 
-// let fileTest = "./PRUEBA";
 
 //RECALL PROMISE
 const mdlinks = (filePath, options) => {
   return new Promise((resolve) => {
   //IF FILE EXISTS
   const exists = fs.existsSync(filePath);
-  // console.log(exists)
   if (exists === true) {
     let arrLinks = [];
     let arrayFiles = [];
@@ -33,7 +28,6 @@ const mdlinks = (filePath, options) => {
       dirFiles.forEach((filename) => {
         arrLinks = filename;
       });
-      // return Promise.all(arrLinks)
     }
     if (!options.validate & !options.stats) {
       console.log(chalk.black.bgWhite.bold("Links info."));
