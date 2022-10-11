@@ -13,27 +13,35 @@ This will allow us to execute JavaScript on the operative system environment, ei
 For installing this module, you will need to write on your console:
 
 Locally:
-npm i @cazavi/md-links
+`npm i @cazavi/md-links`
 
 Globally:
-npm install @cazavi/md-links -g
-
+`npm install @cazavi/md-links -g`
 
 ## USE
 You have two commands to use on terminal adding it to the route you want to test, like this: 
-  md-links route --validate
+  `md-links route --validate`
 
---validate
+_--validate_
 Response:
-
-href: URL.
-text: Inner link text.
-file: link route.
-status: HTTP response code.
-statusText: error or ok (depending on link state).
-
---stats
+  
+```json
+{
+  href: URL,
+  text: Inner link text,
+  file: link route,
+  status: HTTP response code,
+  request: error with code or ok (depending on link state),
+}
+```
+  
+_--stats_
 Response:
-
-total: total links tested on file.
-unique: total not repeated links found.
+  
+```json
+{
+  total: total links tested on file,
+  unique: total not repeated links found,
+}
+```
+  
